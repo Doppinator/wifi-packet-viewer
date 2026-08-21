@@ -58,17 +58,20 @@ def packet_received(packet):
     timestamp = datetime.now().strftime("%H:%M:%S")
 
     if ARP in packet:
-        conv = track_conversation(
-            (packet[ARP].psrc, packet[ARP].hwsrc),
-            (packet[ARP].pdst, packet[ARP].hwdst),
-        )
+        if packet[ARP].op == 1:
+            action = f"Who has {packet[ARP].pdst}?"
+        elif packet[ARP].op == 2:
+            action = f"{packet[ARP].psrc} is at {packet[ARP].hwsrc}"
+        else:
+            action = "Unknown ARP"
 
         print(
-            f"[{packet_counter:03}] {timestamp}  ARP  "
-            f"{packet[ARP].psrc} ({packet[ARP].hwsrc}) → "
-            f"{packet[ARP].pdst} ({packet[ARP].hwdst})  "
-            f"Conn#{conv['id']} ({conv['count']})"
+            f"[{packet_counter:03}] {timestamp}  ARP  {action}"
         )
+        print(f"Source MAC: {packet[ARP].hwsrc}")
+        print(f"Destination MAC: {packet[ARP].hwdst}")
+        print(f"Source IP: {packet[ARP].psrc}")
+        print(f"Destination IP: {packet[ARP].pdst}")
 
     elif DNS in packet:
         conv = track_conversation(
