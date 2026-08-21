@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Packet Viewer",
+            "type": "shell",
+            "command": "sudo",
+            "args": [
+                "${workspaceFolder}/.venv/bin/python",
+                "${workspaceFolder}/packet_viewer.py"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ]
+}
