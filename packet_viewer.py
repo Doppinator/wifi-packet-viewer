@@ -1,5 +1,4 @@
 from datetime import datetime
-
 from scapy.all import ARP, DNS, TCP, UDP, sniff
 
 from protocols import handle_arp, handle_dns, handle_tcp, handle_udp
@@ -30,8 +29,8 @@ capture_start = datetime.now()
 
 print_header(capture_start)
 
-sniff(count=10, prn=packet_received)
-
+sniff(count=30, prn=packet_received)
 capture_end = datetime.now()
 
 print_footer(capture_start, capture_end, packet_counter)
+

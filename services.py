@@ -23,3 +23,28 @@ def get_tcp_service(packet):
         or COMMON_TCP_PORTS.get(packet.sport)
         or "Unknown"
     )
+
+def update_tcp_state(conv, flags):
+    """Update TCP handshake state and return an event message."""
+
+    if conv["state"] == "NEW" and flags == "S":
+        conv["state"] = "SYN_SENT"
+        return "Connection initiated"
+
+    if conv["state"] == "SYN_SENT" and flags == "SA":
+        conv["state"] = "SYN_ACK_RECEIVED"
+        return "Server accepted"
+
+    if conv["state"] == "SYN_ACK_RECEIVED" and flags == "A":
+        conv["state"] = "ESTABLISHED"
+        return "Connection established"
+
+    if flags == "F":
+        conv["state"] = "CLOSING"
+        return "Connection closing"
+
+    if flags == "R":
+        conv["state"] = "RESET"
+        return "Connection reset"
+
+    return None

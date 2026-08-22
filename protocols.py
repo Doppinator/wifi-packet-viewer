@@ -1,7 +1,7 @@
 from scapy.all import ARP, IP, TCP, UDP
 
 from conversation import track_conversation
-from services import get_tcp_service
+from services import get_tcp_service, update_tcp_state
 from utils import timestamp
 
 
@@ -40,6 +40,7 @@ def handle_tcp(packet, number):
 
     service = get_tcp_service(packet[TCP])
     flags = str(packet[TCP].flags)
+    event = update_tcp_state(conv, flags)
 
     print(
         f"[{number:03}] {timestamp()}  TCP  "
@@ -48,6 +49,8 @@ def handle_tcp(packet, number):
         f"{packet[IP].dst}:{packet[TCP].dport}  "
         f"Conn#{conv['id']} ({conv['count']})"
     )
+    if event:
+        print(f"      ✓ {event}")
 def handle_udp(packet, number):
     conv = track_conversation(
         (packet[IP].src, packet[UDP].sport),
