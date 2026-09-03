@@ -1,0 +1,12 @@
+[project]
+name = "wifi-packet-viewer"
+version = "0.1.0"
+description = "Wi-Fi packet viewer and analysis tool for IEEE 802.11 captures."
+requires-python = ">=3.13"
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
