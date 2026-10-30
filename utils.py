@@ -1,12 +1,14 @@
 from datetime import datetime
 
 
+# Prints header with start time of packet capture
 def print_header(start_time):
     print("\n" + "=" * 60)
     print(f"Capture started: {start_time.strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 60)
 
 
+# Prints footer with end time, total packets captured, and duration of capture
 def print_footer(start_time, end_time, packet_count):
     print("=" * 60)
     print(f"Capture ended: {end_time.strftime('%H:%M:%S')}")
@@ -15,5 +17,6 @@ def print_footer(start_time, end_time, packet_count):
     print("=" * 60)
 
 
+# Returns the current time in HH:MM:SS format for use in packet capture logs/display
 def timestamp():
     return datetime.now().strftime("%H:%M:%S")
